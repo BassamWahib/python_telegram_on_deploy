@@ -8,7 +8,7 @@ Created on Mon Dec  4 03:48:01 2023
 import os
 from rembg import remove
 from PIL import Image
-from telegram import update
+
 import nest_asyncio
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, MessageHandler, filters
 
