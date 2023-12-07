@@ -1,5 +1,7 @@
 python-telegram-bot
 fastapi
+python-multipart==0.0.5
+
 nest-asyncio==1.5.8
 Pillow==10.1.0
 rembg
