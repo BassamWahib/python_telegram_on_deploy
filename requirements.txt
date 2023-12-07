@@ -2,6 +2,6 @@ nest-asyncio==1.5.8
 Pillow==10.1.0
 rembg
 telegram
-
+telegram.ext
 uvicorn
 
