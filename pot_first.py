@@ -26,12 +26,16 @@ TOKEN = "6705629015:AAEGa-In-23Vl-WsidDmU_qT1uZTRlwWo4"
 
 app = FastAPI()
 
+@app.get("/")
+def read_root():
+    return {"message": "Hello, World!"}
+
 # Define your FastAPI routes and other code here
 
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+    uvicorn.run(app, host="127.0.0.1", port=10000)
 
 async def help(update, context):
     await context.bot.send_message(chat_id=update.effective_chat.id, text='Hi, I am an image manipulation program. To start click /start')
