@@ -1,0 +1,11 @@
+python-telegram-bot
+
+fastapi==0.68.0
+python-multipart==0.0.5
+uvicorn==0.15.0
+
+
+nest-asyncio==1.5.8
+Pillow==10.1.0
+rembg
+telegram
