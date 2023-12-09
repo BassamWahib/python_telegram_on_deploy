@@ -79,7 +79,7 @@ if __name__ == '__main__':
     application.add_handler(message_handler)
 
     # Run the Telegram bot
-    application.run_polling()
+    #application.run_polling()
 
     # Run FastAPI with Uvicorn
-    #uvicorn.run(app, host="0.0.0.0", port=10000)
+    uvicorn.run(app, host="0.0.0.0", port=10000)
