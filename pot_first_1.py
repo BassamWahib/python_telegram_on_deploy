@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Dec  4 03:48:01 2023
-
-@author: Bassam Wahib
-"""
-
 import os
 from rembg import remove
 from PIL import Image
@@ -14,10 +7,8 @@ from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, fil
 from fastapi import FastAPI
 from fastapi.responses import FileResponse
 from fastapi import UploadFile, HTTPException
-from fastapi import FastAPI, Form, File
 
-
-TOKEN = "6705629015:AAEGa-InW-23Vl-WsidDmU_qT1uZTRlwWo4"
+TOKEN = "6705629015:AAEGa-In-23Vl-WsidDmU_qT1uZTRlwWo4"
 
 app = FastAPI()
 
@@ -25,14 +16,18 @@ app = FastAPI()
 def read_root():
     return {"message": "Hello, World!"}
 
-# Define your FastAPI routes and other code here
+@app.post("/uploadfile/")
+async def create_upload_file(file: UploadFile):
+    with open(f"./temp/{file.filename}", "wb") as f:
+        f.write(file.file.read())
+    return {"filename": file.filename}
 
-if __name__ == "__main__":
-    import uvicorn
-
-    uvicorn.run(app, host="127.0.0.1", port=8000)
-    # uvicorn pot_first:app --host 0.0.0.0 --port 10000
-
+@app.get("/downloadfile/{filename}")
+async def read_item(filename: str):
+    file_path = f"./temp/{filename}"
+    if not os.path.exists(file_path):
+        raise HTTPException(status_code=404, detail="File not found")
+    return FileResponse(file_path, media_type="application/octet-stream", filename=filename)
 
 async def help(update, context):
     await context.bot.send_message(chat_id=update.effective_chat.id, text='Hi, I am an image manipulation program. To start click /start')
@@ -68,19 +63,6 @@ async def handle_message(update, context):
     await context.bot.send_document(chat_id=update.effective_chat.id, document=processed_image)
     os.remove(processed_image)
 
-@app.post("/uploadfile/")
-async def create_upload_file(file: UploadFile):
-    with open(f"./temp/{file.filename}", "wb") as f:
-        f.write(file.file.read())
-    return {"filename": file.filename}
-
-@app.get("/downloadfile/{filename}")
-async def read_item(filename: str):
-    file_path = f"./temp/{filename}"
-    if not os.path.exists(file_path):
-        raise HTTPException(status_code=404, detail="File not found")
-    return FileResponse(file_path, media_type="application/octet-stream", filename=filename)
-
 if __name__ == '__main__':
     nest_asyncio.apply()
 
@@ -96,5 +78,9 @@ if __name__ == '__main__':
     application.add_handler(start_handler)
     application.add_handler(message_handler)
 
-    # Run the application
+    # Run the Telegram bot
     application.run_polling()
+
+# Run FastAPI with Uvicorn
+# Make sure to adjust the host and port if needed
+uvicorn.run(app, host="0.0.0.0", port=8000)
