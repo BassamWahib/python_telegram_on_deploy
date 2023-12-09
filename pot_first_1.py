@@ -65,8 +65,6 @@ async def handle_message(update, context):
     os.remove(processed_image)
 
 if __name__ == '__main__':
-    nest_asyncio.apply()
-
     application = ApplicationBuilder().token(TOKEN).build()
 
     # Command handler
@@ -82,6 +80,5 @@ if __name__ == '__main__':
     # Run the Telegram bot
     application.run_polling()
 
-# Run FastAPI with Uvicorn
-# Make sure to adjust the host and port if needed
-uvicorn.run(app, host="0.0.0.0", port=8000)
+    # Run FastAPI with Uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
