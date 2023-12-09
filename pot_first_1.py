@@ -12,6 +12,7 @@ from fastapi import UploadFile, HTTPException
 TOKEN = "6705629015:AAEGa-In-23Vl-WsidDmU_qT1uZTRlwWo4"
 
 app = FastAPI()
+server = app.server
 
 @app.get("/")
 def read_root():
