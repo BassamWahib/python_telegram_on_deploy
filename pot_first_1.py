@@ -1,6 +1,7 @@
 import os
 from rembg import remove
 from PIL import Image
+import uvicorn
 
 import nest_asyncio
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters
